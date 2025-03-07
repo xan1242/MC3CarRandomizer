@@ -2,7 +2,7 @@
 
 This is a very simple vehicle randomizer for Midnight Club 3 that changes your active vehicle at each race finish.
 
-Your vehicle modifications will be retained as the car is changed.
+Your vehicle modifications will be retained as the vehicle is changed.
 
 The seed is generated from your profile name and stored inside the save file.
 
@@ -26,15 +26,15 @@ As of now, not yet. [There is a tool made by ermaccer](https://github.com/ermacc
 
 - Randomizer seed is generated from your profile name and stored in your save file (overwrites one of the strings used in online mode chat). 
 
-- Car changes when you finish a race (applies with each loading screen).
+- Vehicle changes when you finish a race (applies with each loading screen).
 
-- Car parts are retained no matter which car you have selected in the garage.
+- Vehicle parts are retained no matter which vehicle you have selected in the garage.
 
 ### Long explanation
 
 The randomizer hooks a few key events in the game:
 
-1. Car configuration setting/application - this is where the car override gets applied
+1. Vehicle configuration setting/application - this is where the vehicle override gets applied
 
 2. Career data loading - this is where the seed data and the active vehicle is read from the save data
 
@@ -42,11 +42,11 @@ The randomizer hooks a few key events in the game:
 
 4. Save creation - this is where the seed is generated
 
-5. Race finish - this is where the car randomization is triggered
+5. Race finish - this is where the vehicle randomization is triggered
 
-6. Race over screen - this is where verification that you've randomized the car happens
+6. Race over screen - this is where verification that you've randomized the vehicle happens
 
-The car list is obtained from a vehicle list pointer (at `0x006E0170` in the Remix US build) that the game creates from `tune/vehicle/vehicle.lst`.
+The vehicle list is obtained from a vehicle list pointer (at `0x006E0170` in the Remix US build) that the game creates from `tune/vehicle/vehicle.lst`.
 
 The vehicle count is found right next to the vehicle list pointer as a 16-bit integer.
 
