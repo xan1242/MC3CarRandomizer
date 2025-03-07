@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{2C95429D-8256-4051-B257-4025D63BC70F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <OutDir>$(SolutionDir)build\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <OutDir>$(SolutionDir)build\</OutDir>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeOutput>$(OutDir)MC3CarRandomizer.elf</NMakeOutput>
+    <NMakeBuildCommandLine>@echo off
+setlocal EnableDelayedExpansion
+:: Set PCSX2F dir
+set _PCSX2FDir=F:\Emulators\PCSX2\PluginFork\
+
+:: Start the "make" process
+:: You need to launch it via a script that sets the path variables, such as vsmake.ps1 here
+:: We use Powershell to avoid issues with paths with spaces
+powershell -ExecutionPolicy Bypass -File "$(SolutionDir)/external/ps2sdk/ee/bin/vsmake.ps1" -C "$(SolutionDir)$(ProjectName)/" DEBUG=1
+:: Exit on make error
+if !errorlevel! neq 0 exit /b !errorlevel!
+
+if not defined _PCSX2FDir goto :eof
+if not exist !_PCSX2FDir! goto :eof
+if not exist !_PCSX2FDir!PLUGINS mkdir !_PCSX2FDir!PLUGINS
+set target=!_PCSX2FDir!PLUGINS
+echo Copying $(NMakeOutput) to "!target!"
+copy /y "$(NMakeOutput)" "!target!"
+
+</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>@echo off
+setlocal EnableDelayedExpansion
+
+:: Start the "make clean" process
+del /Q "$(SolutionDir)$(ProjectName)\*.o"
+
+:: Exit on make error
+if !errorlevel! neq 0 exit /b !errorlevel!</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>@echo off
+setlocal EnableDelayedExpansion
+:: Set PCSX2F dir
+set _PCSX2FDir=F:\Emulators\PCSX2\PluginFork\
+
+:: Start the "make clean" process
+del /Q "$(SolutionDir)$(ProjectName)\*.o"
+
+:: Exit on make error
+if !errorlevel! neq 0 exit /b !errorlevel!
+
+:: Start the "make" process
+:: You need to launch it via a script that sets the path variables, such as vsmake.ps1 here
+:: We use Powershell to avoid issues with paths with spaces
+powershell -ExecutionPolicy Bypass -File "$(SolutionDir)/external/ps2sdk/ee/bin/vsmake.ps1" -C "$(SolutionDir)$(ProjectName)/" DEBUG=1
+:: Exit on make error
+if !errorlevel! neq 0 exit /b !errorlevel!
+
+if not defined _PCSX2FDir goto :eof
+if not exist !_PCSX2FDir! goto :eof
+if not exist !_PCSX2FDir!PLUGINS mkdir !_PCSX2FDir!PLUGINS
+set target=!_PCSX2FDir!PLUGINS
+echo Copying $(NMakeOutput) to "!target!"
+copy /y "$(NMakeOutput)" "!target!"
+
+</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>MINJECTOR_NO_ADJUST;MINJECTOR_MINIMAL;__DEBUG</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(SolutionDir)$(ProjectName);$(SolutionDir)$(ProjectName)\includes;$(SolutionDir)external\ps2sdk\ee\mips64r5900el-ps2-elf\bin;$(SolutionDir)external\ps2sdk\ee\mips64r5900el-ps2-elf\include;$(SolutionDir)external\ps2sdk\ee\include;$(SolutionDir)external\ps2sdk\ps2sdk\ee\include;$(SolutionDir)external\ps2sdk\ps2sdk\common\include</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeOutput>$(OutDir)MC3CarRandomizer.elf</NMakeOutput>
+    <NMakeBuildCommandLine>@echo off
+setlocal EnableDelayedExpansion
+:: Set PCSX2F dir
+set _PCSX2FDir=F:\Emulators\PCSX2\PluginFork\
+
+:: Start the "make" process
+:: You need to launch it via a script that sets the path variables, such as vsmake.ps1 here
+:: We use Powershell to avoid issues with paths with spaces
+powershell -ExecutionPolicy Bypass -File "$(SolutionDir)/external/ps2sdk/ee/bin/vsmake.ps1" -C "$(SolutionDir)$(ProjectName)/" ENABLELOG=1 RELEASE=1
+:: Exit on make error
+if !errorlevel! neq 0 exit /b !errorlevel!
+if not defined _PCSX2FDir goto :eof
+if not exist !_PCSX2FDir! goto :eof
+if not exist !_PCSX2FDir!PLUGINS mkdir !_PCSX2FDir!PLUGINS
+set target=!_PCSX2FDir!PLUGINS
+echo Copying $(NMakeOutput) to "!target!"
+copy /y "$(NMakeOutput)" "!target!"
+
+</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>@echo off
+setlocal EnableDelayedExpansion
+
+:: Start the "make clean" process
+del /Q "$(SolutionDir)$(ProjectName)\*.o"
+
+:: Exit on make error
+if !errorlevel! neq 0 exit /b !errorlevel!
+</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>@echo off
+setlocal EnableDelayedExpansion
+:: Set PCSX2F dir
+set _PCSX2FDir=F:\Emulators\PCSX2\PluginFork\
+
+:: Start the "make clean" process
+del /Q "$(SolutionDir)$(ProjectName)\*.o"
+:: Exit on make error
+if !errorlevel! neq 0 exit /b !errorlevel!
+
+:: Start the "make" process
+:: You need to launch it via a script that sets the path variables, such as vsmake.ps1 here
+:: We use Powershell to avoid issues with paths with spaces
+powershell -ExecutionPolicy Bypass -File "$(SolutionDir)/external/ps2sdk/ee/bin/vsmake.ps1" -C "$(SolutionDir)$(ProjectName)/" ENABLELOG=1 RELEASE=1
+:: Exit on make error
+if !errorlevel! neq 0 exit /b !errorlevel!
+
+if not defined _PCSX2FDir goto :eof
+if not exist !_PCSX2FDir! goto :eof
+if not exist !_PCSX2FDir!PLUGINS mkdir !_PCSX2FDir!PLUGINS
+set target=!_PCSX2FDir!PLUGINS
+echo Copying $(NMakeOutput) to "!target!"
+copy /y "$(NMakeOutput)" "!target!"
+
+</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>MINJECTOR_NO_ADJUST;MINJECTOR_MINIMAL;__ENABLELOG</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>$(SolutionDir)$(ProjectName);$(SolutionDir)$(ProjectName)\includes;$(SolutionDir)external\ps2sdk\ee\mips64r5900el-ps2-elf\bin;$(SolutionDir)external\ps2sdk\ee\mips64r5900el-ps2-elf\include;$(SolutionDir)external\ps2sdk\ee\include;$(SolutionDir)external\ps2sdk\ps2sdk\ee\include;$(SolutionDir)external\ps2sdk\ps2sdk\common\include</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="gprintf.c" />
+    <ClCompile Include="includes\bRandom.c" />
+    <ClCompile Include="includes\minjector.c" />
+    <ClCompile Include="includes\stringhash.c" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="mcRandomizer.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="linkfile" />
+    <None Include="makefile" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="gprintf.h" />
+    <ClInclude Include="includes\bRandom.h" />
+    <ClInclude Include="includes\minjector.h" />
+    <ClInclude Include="includes\stringhash.h" />
+    <ClInclude Include="mcRandomizer.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
