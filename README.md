@@ -14,11 +14,17 @@ The seed is generated from your profile name and stored inside the save file.
 
 ## Game compatibility
 
-Currently it only works with the MC3 Remix US build (CRC: `0x60A42FF5`, ID: `SLUS-21355`)
+Currently it only works with the MC3 Remix US build (CRC: `0x60A42FF5`, ID: `SLUS-21355`) for PS2.
 
 ## Is it possible to run this on a PS2?
 
 As of now, not yet. [There is a tool made by ermaccer](https://github.com/ermaccer/ps2plugininjector) that could inject it into the executable, however, it's not fully stable because it doesn't relocate the code (it relies on a fixed section and prays that it doesn't get overwritten by the game).
+
+## What about Xbox or PSP builds?
+
+PSP builds are very much possible. This code should be 1:1 portable, just needs pointer changes and project configuration to create a PRX file.
+
+As for the Xbox - this is where it gets tricky. It is possible to build a trainer/DLL that injects the code, however, as the documentation is scarce, it's hard to say.
 
 ## How does this work?
 
